@@ -12,6 +12,7 @@ Base = declarative_base()
 class Student(Base):
     __tablename__ = 'students'
     id = Column(Integer, primary_key=True)
+    registration_number = Column(String, unique=True, nullable=False)
     first_name = Column(String(50))
     last_name = Column(String(50))
     email = Column(String(50))
@@ -21,7 +22,7 @@ class Student(Base):
     assignments = relationship("Assignment", back_populates="student")
 
     def __repr__(self):
-        return f"Student(id={self.id}, first_name={self.first_name}, last_name={self.last_name}, email={self.email}, gpa={self.gpa})"
+        return f"<Student {self.registration_number} - {self.first_name} {self.last_name}>"
 class Teacher(Base):
     __tablename__ = 'teachers'
     id = Column(Integer, primary_key=True)
