@@ -28,13 +28,14 @@ class Course(Base):
      id = Column(Integer, primary_key=True)
      name = Column(String(50))
      code = Column(String(50))
+     credits = Column(Integer)
      semester = Column(String(50))
 
      enrollments = relationship("Enrollment", back_populates="course")
      assignments = relationship("Assignment", back_populates="course")
 
      def __repr__(self):
-            return f"Course(id={self.id}, title={self.title}, code={self.code})"
+            return f"Course(id={self.id}, name={self.name}, code={self.code}),credits={self.credits}, semester={self.semester})"
 
 class Enrollment(Base):
     __tablename__ = 'enrollments'
@@ -63,3 +64,6 @@ class Assignment(Base):
 
     def __repr__(self):
         return f"Assignment(id={self.id}, student_id={self.student_id}, course_id={self.course_id})"
+    
+if __name__ == "__main__":
+    Base.metadata.create_all(engine)
