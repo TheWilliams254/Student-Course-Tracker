@@ -4,7 +4,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean
 from sqlalchemy.orm import declarative_base, relationship
-
+import hashlib
 engine = create_engine('sqlite:///student-tracker.db')
 
 Base = declarative_base()
@@ -22,7 +22,20 @@ class Student(Base):
 
     def __repr__(self):
         return f"Student(id={self.id}, first_name={self.first_name}, last_name={self.last_name}, email={self.email}, gpa={self.gpa})"
-    
+class Teacher(Base):
+    __tablename__ = 'teachers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    email = Column(String(50), nullable=False)
+    password_hash = Column(String(12), nullable=False)   
+
+    def set_password(self, password):
+        self.password_hash = hashlib.sha256(password.encode()).hexdigest()
+
+    def check_password(self, password):
+        return self.password_hash == hashlib.sha256(password.encode()).hexdigest()
+    def __repr__(self):
+        return f"Teacher(id={self.id}, name={self.name}, email={self.email})"
 class Course(Base):
      __tablename__ = 'courses'
      id = Column(Integer, primary_key=True)
