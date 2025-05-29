@@ -34,6 +34,7 @@ def teacher_menu():
     print("4. Add Assignment")
     print("5. List Assignments")
     print("6. Mark Assignment as Submitted")
+    print("7. View All Students")
     print("0. Logout")
 
 def student_menu():
@@ -107,6 +108,14 @@ def mark_submitted():
         print("✅ Assignment marked as submitted.")
     else:
         print("❌ Assignment not found.")
+def view_all_students():
+    students = session.query(Student).all()
+    if not students:
+        print("❌ No students found.")
+        return
+    print("\n=== Student List ===")
+    for student in students:
+        print(f"ID: {student.id} | Name: {student.first_name} {student.last_name} | Email: {student.email} | GPA: {student.gpa}")
 
 # ------------------ Main ------------------
 
@@ -133,6 +142,8 @@ def main():
                     list_assignments()
                 elif choice == "6":
                     mark_submitted()
+                elif choice == "7":
+                    view_all_students()
                 elif choice == "0":
                     break
                 else:
