@@ -1,10 +1,22 @@
-from app.models import Student, Course, Enrollment, Assignment, engine, Base
+from app.models import Student, Course, Enrollment, Assignment, engine, Base, Teacher
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 
 Session = sessionmaker(bind=engine)
 session = Session()
+import hashlib
 
+#Teacher's Login Authentication
+def teacher_login():
+    email = input("Email: ")
+    password = input("Password: ")
+    teacher = session.query(Teacher).filter_by(email=email).first()
+    if teacher and teacher.check_password(password):
+        print(f"✅ Welcome, {teacher.name}!")
+        return teacher
+    else:
+        print("❌ Invalid credentials.")
+        return None
 # ------------------ Menus ------------------
 
 def choose_role():
@@ -103,6 +115,9 @@ def main():
         role = choose_role()
         
         if role == "1":  # Teacher
+            teacher = teacher_login()
+            if not teacher:
+                continue #return to main menu
             while True:
                 teacher_menu()
                 choice = input("Enter choice: ")
