@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('teacher_dashboard') }}">Teacher Dashboard</a>
+  </nav>
+
+  <h1>Student Login</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="flash-message error">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="post" action="{{ url_for('student_login') }}">
+    <label for="registration_number">Registration Number</label>
+    <input type="text" id="registration_number" name="registration_number" required>
+
+    <button type="submit">Login</button>
+  </form>
+</body>
+</html>

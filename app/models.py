@@ -3,10 +3,11 @@
 #!/usr/bin/env python3
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import declarative_base, relationship,sessionmaker
 import hashlib
 engine = create_engine('sqlite:///student-tracker.db')
-
+Session = sessionmaker(bind=engine)
+session = Session()
 Base = declarative_base()
 
 class Student(Base):

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Assignment</title>
+</head>
+<body>
+  <h1>Add Assignment</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+        {% for category, msg in messages %}
+          <li style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post">
+    <label for="title">Assignment Title:</label><br />
+    <input type="text" name="title" id="title" required /><br /><br />
+
+    <label for="due_date">Due Date (YYYY-MM-DD):</label><br />
+    <input type="date" name="due_date" id="due_date" required /><br /><br />
+
+    <label for="course_id">Course:</label><br />
+    <select name="course_id" id="course_id" required>
+      {% for course in courses %}
+        <option value="{{ course.id }}">{{ course.name }} ({{ course.code }})</option>
+      {% endfor %}
+    </select><br /><br />
+
+    <label for="reg_no">Student Registration Number:</label><br />
+    <input type="text" name="reg_no" id="reg_no" required /><br /><br />
+
+    <button type="submit">Add Assignment</button>
+  </form>
+
+  <p><a href="{{ url_for('teacher_dashboard') }}">Back to Dashboard</a></p>
+</body>
+</html>

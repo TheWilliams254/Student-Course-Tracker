@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teacher Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('student_login') }}">Student Login</a>
+  </nav>
+
+  <h1>Teacher Dashboard</h1>
+
+  <h2>Students</h2>
+  {% if students %}
+    <ul>
+      {% for student in students %}
+        <li>{{ student.registration_number }} - {{ student.first_name }} {{ student.last_name }} ({{ student.email }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No students found.</p>
+  {% endif %}
+
+  <h2>Courses</h2>
+  {% if courses %}
+    <ul>
+      {% for course in courses %}
+        <li>{{ course.name }} ({{ course.code }}) - {{ course.semester }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No courses available.</p>
+  {% endif %}
+
+  <h2>Actions</h2>
+  <ul>
+    <li><a href="{{ url_for('add_assignment') }}">Add Assignment</a></li>
+    <li><a href="{{ url_for('list_assignments') }}">View Assignments</a></li>
+    <li><a href="{{ url_for('mark_submitted') }}">Mark Assignment as Submitted</a></li>
+  </ul>
+</body>
+</html>

@@ -48,7 +48,7 @@ def student_menu():
 # ------------------ Teacher Actions ------------------
 
 def add_student():
-    reg_no = int(input("Registration Number: "))
+    reg_no = input("Registration Number: ").strip()
     first = input("First Name: ")
     last = input("Last Name: ")
     email = input("Email: ")
