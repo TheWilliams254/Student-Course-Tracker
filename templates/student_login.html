@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Student Login</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-  <nav>
-    <a href="{{ url_for('home') }}">Home</a>
-    <a href="{{ url_for('teacher_dashboard') }}">Teacher Dashboard</a>
-  </nav>
+{% extends "base.html" %}
+{% block title %}Student Login{% endblock %}
 
-  <h1>Student Login</h1>
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for msg in messages %}
-        <div class="flash-message error">{{ msg }}</div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
-  <form method="post" action="{{ url_for('student_login') }}">
-    <label for="registration_number">Registration Number</label>
-    <input type="text" id="registration_number" name="registration_number" required>
-
-    <button type="submit">Login</button>
-  </form>
-</body>
-</html>
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+    <h3 class="mb-4 text-center">Student Login</h3>
+    <form method="POST">
+      <div class="mb-3">
+        <label for="registration_number" class="form-label">Registration Number</label>
+        <input type="text" class="form-control" id="registration_number" name="registration_number" required autofocus />
+      </div>
+      <button type="

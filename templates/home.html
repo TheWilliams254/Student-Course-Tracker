@@ -2,16 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Student Course Tracker</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>Course Tracker Home</title>
 </head>
 <body>
-  <nav>
-    <a href="{{ url_for('student_login') }}">Student Login</a>
-    <a href="{{ url_for('teacher_dashboard') }}">Teacher Dashboard</a>
-  </nav>
-
-  <h1>Welcome to Student Course Tracker</h1>
-  <p>Use the navigation links above to login or manage courses.</p>
+  <h1>Welcome to Course Tracker</h1>
+  <p><a href="{{ url_for('teacher_login') }}">Teacher Login</a></p>
 </body>
 </html>
