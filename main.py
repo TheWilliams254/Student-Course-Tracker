@@ -30,9 +30,9 @@ def teacher_menu():
     print("\n=== Teacher Menu ===")
     print("1. Add Student")
     print("2. Add Course")
-    print("3. Enroll Students in Course")  # <- Updated
+    print("3. Enroll Students in Course")  
     print("4. Add Assignment for One Student")
-    print("5. Add Assignment to Entire Course")  # <- New
+    print("5. Add Assignment to Entire Course") 
     print("6. List Assignments")
     print("7. Mark Assignment as Submitted")
     print("8. View All Students")
