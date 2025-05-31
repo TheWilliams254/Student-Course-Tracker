@@ -233,5 +233,44 @@ def view_all_students():
     students = db_session.query(Student).all()
     return render_template('view_students.html', students=students)
 
+@app.route('/student/login', methods=['GET', 'POST'])
+def student_login():
+    if request.method == 'POST':
+        reg_no = request.form['registration_number']
+        password = request.form['password']
+
+        student = db_session.query(Student).filter_by(registration_number=reg_no).first()
+        if student and student.check_password(password):
+            session['student_id'] = student.id
+            flash(f"Welcome {student.first_name}!", "success")
+            return redirect(url_for('student_dashboard'))
+        else:
+            flash("Invalid registration number or password.", "danger")
+    return render_template('student_login.html')
+
+@app.route('/student/logout')
+def student_logout():
+    session.pop('student_id', None)
+    flash("Logged out successfully.", "info")
+    return redirect(url_for('student_login'))
+
+def student_login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'student_id' not in session:
+            flash("Please log in as student.", "warning")
+            return redirect(url_for('student_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/student/dashboard')
+@student_login_required
+def student_dashboard():
+    student = db_session.query(Student).get(session['student_id'])
+    enrollments = db_session.query(Enrollment).filter_by(student_id=student.id).all()
+    assignments = db_session.query(Assignment).filter_by(student_id=student.id).all()
+    return render_template('student_dashboard.html', student=student, enrollments=enrollments, assignments=assignments)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

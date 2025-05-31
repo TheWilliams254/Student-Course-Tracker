@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Assignments List</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Student</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for assignment in assignments %}
+      <tr>
+        <td>{{ assignment.title }}</td>
+        <td>{{ assignment.due_date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ assignment.student.first_name }} {{ assignment.student.last_name }}</td>
+        <td>{{ assignment.course.name }}</td>
+        <td>
+          {% if assignment.submitted %}
+            <span class="badge bg-success">Submitted</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">Pending</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if not assignment.submitted %}
+          <form method="POST" action="{{ url_for('mark_assignment_submitted', assignment_id=assignment.id) }}">
+            <button class="btn btn-sm btn-primary">Mark Submitted</button>
+          </form>
+          {% else %}
+            <span class="text-muted">Done</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

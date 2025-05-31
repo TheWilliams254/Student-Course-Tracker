@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.first_name }}'s Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Student Dashboard</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <span class="navbar-text text-white me-3">Logged in as {{ student.first_name }}</span>
+                <a class="btn btn-outline-light" href="{{ url_for('student_logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Welcome, {{ student.first_name }} {{ student.last_name }}</h2>
+        <hr>
+
+        <h4>Your Enrolled Courses</h4>
+        <ul class="list-group mb-4">
+            {% for enrollment in enrollments %}
+                <li class="list-group-item">
+                    {{ enrollment.course.course_name }}
+                </li>
+            {% else %}
+                <li class="list-group-item">No courses enrolled yet.</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Your Assignments</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Title</th>
+                    <th>Submitted On</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.course.course_name }}</td>
+                        <td>{{ assignment.title }}</td>
+                        <td>{{ assignment.submitted_on.strftime('%Y-%m-%d') if assignment.submitted_on else 'N/A' }}</td>
+                        <td>
+                            {% if assignment.approved %}
+                                <span class="badge bg-success">Approved</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="4" class="text-center">No assignments submitted yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
