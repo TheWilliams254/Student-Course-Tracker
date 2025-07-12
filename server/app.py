@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from .models import Student, Teacher, Course, Assignment, Enrollment, engine
+from models import Student, Teacher, Course, Assignment, Enrollment, engine
 from sqlalchemy.orm import sessionmaker
 from functools import wraps
 from datetime import datetime
