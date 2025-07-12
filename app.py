@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from app.models import Student, Teacher, Course, Assignment, Enrollment, engine
+from server.models import Student, Teacher, Course, Assignment, Enrollment, engine
 from sqlalchemy.orm import sessionmaker
 from functools import wraps
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key'  # Change to a secure key!
+app.secret_key = 'your-secret-key'
 
 Session = sessionmaker(bind=engine)
 db_session = Session()

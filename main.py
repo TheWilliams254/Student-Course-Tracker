@@ -1,4 +1,4 @@
-from app.models import Student, Course, Enrollment, Assignment, engine, Base, Teacher
+from server.models import Student, Course, Enrollment, Assignment, engine, Base, Teacher
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 
