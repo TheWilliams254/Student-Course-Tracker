@@ -1,4 +1,4 @@
-from server.models import Base, engine, Teacher, Student, Course, Enrollment, Assignment
+from models import Base, engine, Teacher, Student, Course, Enrollment, Assignment
 from sqlalchemy.orm import sessionmaker
 import random
 from datetime import datetime
