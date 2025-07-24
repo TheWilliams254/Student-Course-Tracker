@@ -20,16 +20,20 @@
         <h2>Welcome, {{ student.first_name }} {{ student.last_name }}</h2>
         <hr>
 
-        <h4>Your Enrolled Courses</h4>
-        <ul class="list-group mb-4">
-            {% for enrollment in enrollments %}
-                <li class="list-group-item">
-                    {{ enrollment.course.course_name }}
-                </li>
-            {% else %}
-                <li class="list-group-item">No courses enrolled yet.</li>
-            {% endfor %}
-        </ul>
+        <h3>Your Enrolled Courses</h3>
+        <table>
+        {% for enrollment in enrollments %}
+            <tr>
+            <td>
+                {% if enrollment.course %}
+                {{ enrollment.course.name }}
+                {% else %}
+                No course found
+                {% endif %}
+            </td>
+            </tr>
+        {% endfor %}
+        </table>
 
         <h4>Your Assignments</h4>
         <table class="table table-striped">

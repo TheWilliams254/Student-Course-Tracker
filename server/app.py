@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from models import Student, Teacher, Course, Assignment, Enrollment, engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 from functools import wraps
 from datetime import datetime
 import os
@@ -271,10 +271,19 @@ def student_login_required(f):
 @student_login_required
 def student_dashboard():
     student = db_session.query(Student).get(session['student_id'])
-    enrollments = db_session.query(Enrollment).filter_by(student_id=student.id).all()
+
+    enrollments = db_session.query(Enrollment)\
+        .filter_by(student_id=student.id)\
+        .options(joinedload(Enrollment.course))\
+        .all()
+
     assignments = db_session.query(Assignment).filter_by(student_id=student.id).all()
-    return render_template('student_dashboard.html', student=student, enrollments=enrollments, assignments=assignments)
 
-
+    return render_template(
+        'student_dashboard.html',
+        student=student,
+        enrollments=enrollments,
+        assignments=assignments
+    )
 if __name__ == '__main__':
     app.run(debug=True)
