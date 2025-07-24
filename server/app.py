@@ -4,7 +4,10 @@ from sqlalchemy.orm import sessionmaker
 from functools import wraps
 from datetime import datetime
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
