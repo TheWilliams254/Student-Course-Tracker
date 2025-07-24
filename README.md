@@ -1,67 +1,106 @@
 # 🎓 Student Course Tracker
 
-The **Student Course Tracker** is a Flask-based web application that allows students and teachers to manage courses, assignments, and progress tracking. It supports assignment submission, approval, PDF/CSV export, and role-based dashboards.
+A full-stack web application for managing courses, assignments, and enrollments between students and teachers. Designed to streamline academic tracking, assignment submissions, and student-teacher interactions.
+
+---
+
+## 📘 Project Overview
+
+The Student Course Tracker is an academic management system that allows teachers to:
+- Create and manage courses and assignments
+- View enrolled students and their submissions
+
+And allows students to:
+- View enrolled courses
+- Submit assignments
+- Track their assignment statuses
 
 ---
 
 ## 🚀 Features
 
-### 🧑‍🎓 Students
-- Secure login
-- View enrolled courses
+### 🧑‍🏫 Teachers
+- Register/Login securely
+- Add and manage courses
+- Add and manage assignments
+- View and grade student submissions
+- View enrolled students per course
+
+### 🎓 Students
+- Register/Login securely
+- Enroll in courses
+- View enrolled courses and assignments
 - Submit assignments
-- Track assignment approval status
-
-### 👩‍🏫 Teachers
-- Login and access personalized dashboard
-- View all students and their courses
-- Approve or reject submitted assignments
-- Export assignment data as CSV or PDF
+- Track assignment submission status and feedback
 
 ---
 
-## 🛠 Technologies Used
+## 🛠️ Technologies Used
 
-- **Backend**: Python, Flask, SQLAlchemy
-- **Frontend**: HTML, Bootstrap, Jinja2 Templates
-- **Database**: SQLite
-- **Authentication**: Flask-Login
-- **PDF Generation**: ReportLab
-- **CSV Export**: Python CSV module
-- **ORM Migration**: Alembic
+- **Frontend**: React, React Router, Bootstrap
+- **Backend**: FastAPI or Flask (depending on build)
+- **Database**: PostgreSQL / SQLite (for development)
+- **ORM**: SQLAlchemy / Tortoise ORM
+- **Authentication**: JWT-based Auth
+- **Styling**: Bootstrap, Custom CSS
+- **File Handling**: UploadFile, Form handling (FastAPI)
+- **Testing**: Pytest, Minitests
+- **Others**: Chart.js for analytics
 
 ---
 
+## 💻 How to Run
 
----
+### Backend
 
-## ⚙️ Installation
-
-1. **Clone the repository:**
-
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/student-course-tracker.git
+   cd student-course-tracker/server
+   ```
+2. Create virtual environment and install dependencies:
 ```bash
-git clone https://github.com/TheWilliams254/student-course-tracker.git
-cd student-course-tracker
-
-2. **Create and activate a virtual environment:**
 python -m venv venv
-source venv/bin/activate     # On Windows: venv\Scripts\activate
-
-3. Install dependencies:
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
+3. Run migrations:
+```bash
+alembic upgrade head
+```
+4. Start the server:
+```bash 
+uvicorn main:app --reload
+```
+## 📸 Application Screenshots
 
-4. Set environment variables (optional):
+### 🔐 Login Page
+![Login](server/assets/screenshots/login.png)
 
-Create a .env file and add:
-FLASK_APP=app.py
-FLASK_ENV=development
+### 👨‍🏫 Teacher Dashboard
+![Teacher Dashboard](server/assets/screenshots/teachers_dashboard.png)
 
-5. Initialize the database:
-    flask db upgrade
-python app/seed.py   # (Optional) Seed initial data
+### 🎓 Student Dashboard
+![Student Dashboard](server/assets/screenshots/student_dashboard.png)
 
-6. Run the application:
+### ➕ Add Course
+![Add Course](server/assets/screenshots/add_course.png)
 
- flask run
+### ➕ Add Student
+![Add Student](server/assets/screenshots/add_student.png)
 
-App will be available at http://localhost:5000
+### 📄 Create Assignment
+![Create Assignment](server/assets/screenshots/create_assignment.png)
+
+### 🧑‍🏫 View Students
+![View Students](server/assets/screenshots/view_students.png)
+
+### 📝 Assignments List
+![Assignments](server/assets/screenshots/assignments.png)
+
+### ✅ Enroll Students
+![Enroll Students](server/assets/screenshots/enroll_students.png)
+
+
+
+
