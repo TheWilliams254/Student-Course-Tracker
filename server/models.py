@@ -5,7 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Boolean
 from sqlalchemy.orm import declarative_base, relationship,sessionmaker
 import hashlib
-engine = create_engine('sqlite:///student-tracker.db')
+import os
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+engine = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
 Base = declarative_base()
@@ -19,8 +22,8 @@ class Student(Base):
     email = Column(String(50))
     gpa = Column(Float)
 
-    enrollments = relationship("Enrollment", back_populates="student")
-    assignments = relationship("Assignment", back_populates="student")
+    enrollments = relationship("Enrollment", back_populates="student", cascade="all, delete-orphan")
+    assignments = relationship("Assignment", back_populates="student", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Student {self.registration_number} - {self.first_name} {self.last_name}>"
@@ -29,7 +32,7 @@ class Teacher(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     email = Column(String(50), nullable=False)
-    password_hash = Column(String(12), nullable=False)   
+    password_hash = Column(String(64), nullable=False)   
 
     def set_password(self, password):
         self.password_hash = hashlib.sha256(password.encode()).hexdigest()
