@@ -38,6 +38,8 @@ class Teacher(Base):
         self.password_hash = hashlib.sha256(password.encode()).hexdigest()
 
     def check_password(self, password):
+        if not self.password_hash:
+            return False
         return self.password_hash == hashlib.sha256(password.encode()).hexdigest()
     def __repr__(self):
         return f"Teacher(id={self.id}, name={self.name}, email={self.email})"

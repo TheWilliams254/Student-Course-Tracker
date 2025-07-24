@@ -30,8 +30,8 @@ def home():
 @app.route('/teacher/login', methods=['GET', 'POST'])
 def teacher_login():
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        email = request.form.get('email')
+        password = request.form.get('password')
 
         teacher = db_session.query(Teacher).filter_by(email=email).first()
         if teacher and teacher.check_password(password):
